@@ -34,6 +34,8 @@ class VideoFrame(Frame):
     pict_type: int
     colorspace: int
     color_range: int
+    color_primaries: int
+    color_trc: int
 
     @property
     def time(self) -> float: ...

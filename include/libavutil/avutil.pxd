@@ -82,6 +82,9 @@ cdef extern from "libavutil/avutil.h" nogil:
         AVCOL_PRI_EBU3213
         AVCOL_PRI_JEDEC_P22
         AVCOL_PRI_NB
+        AVCOL_PRI_EXT_BASE = 256
+        AVCOL_PRI_V_GAMUT = 256
+        AVCOL_PRI_EXT_NB
 
     cdef enum AVColorTransferCharacteristic:
         AVCOL_TRC_RESERVED0
@@ -106,6 +109,9 @@ cdef extern from "libavutil/avutil.h" nogil:
         AVCOL_TRC_SMPTEST428_1
         AVCOL_TRC_ARIB_STD_B67
         AVCOL_TRC_NB
+        AVCOL_TRC_EXT_BASE = 256
+        AVCOL_TRC_V_LOG = 256
+        AVCOL_TRC_EXT_NB
 
     cdef double M_PI
 

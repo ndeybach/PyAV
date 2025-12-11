@@ -9,7 +9,13 @@ import av
 from av import VideoFrame
 from av.frame import Frame
 from av.video.frame import supported_np_pix_fmts
-from av.video.reformatter import ColorRange, Colorspace, Interpolation
+from av.video.reformatter import (
+    ColorPrimaries,
+    ColorRange,
+    Colorspace,
+    ColorTransferCharacteristic,
+    Interpolation,
+)
 
 from .common import TestCase, assertNdarraysEqual, fate_png, fate_suite
 
@@ -1281,6 +1287,30 @@ def test_reformat_colorspace() -> None:
     frame.colorspace = Colorspace.smpte240m
     assert frame.colorspace == int(Colorspace.smpte240m)
     assert frame.colorspace == Colorspace.smpte240m
+
+
+def test_color_properties() -> None:
+    frame = VideoFrame(640, 480, "rgb24")
+
+    # Check defaults
+    assert frame.color_primaries == ColorPrimaries.UNSPECIFIED
+    assert frame.color_trc == ColorTransferCharacteristic.UNSPECIFIED
+
+    # Test color_primaries
+    frame.color_primaries = ColorPrimaries.BT709
+    assert frame.color_primaries == ColorPrimaries.BT709
+    assert frame.color_primaries == int(ColorPrimaries.BT709)
+
+    frame.color_primaries = ColorPrimaries.BT2020
+    assert frame.color_primaries == ColorPrimaries.BT2020
+
+    # Test color_trc
+    frame.color_trc = ColorTransferCharacteristic.GAMMA22
+    assert frame.color_trc == ColorTransferCharacteristic.GAMMA22
+    assert frame.color_trc == int(ColorTransferCharacteristic.GAMMA22)
+
+    frame.color_trc = ColorTransferCharacteristic.SMPTE2084
+    assert frame.color_trc == ColorTransferCharacteristic.SMPTE2084
 
 
 def test_reformat_pixel_format_align() -> None:
